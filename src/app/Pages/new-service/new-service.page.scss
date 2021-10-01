@@ -1,0 +1,36 @@
+.encabezado {
+    background: #e6e6fa;
+    border-radius: 30px;
+    margin: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.avatar-content {
+    --border-radius: 20%;
+    width: 10rem;
+    height: 10rem;
+}
+
+ion-icon {
+    color: #F60;
+}
+
+.card-blank {
+    background-image: url("../../../assets/bg-texture-01.png");
+    background-size: cover;
+    background-position: center;
+    margin: 0px;
+}
+
+.color {
+    --background: rgba(251, 176, 59, 1);
+    --background: -moz-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(251, 176, 59, 1)), color-stop(100%, rgba(218, 90, 39, 1)));
+    --background: -webkit-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -o-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -ms-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: linear-gradient(to bottom, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    // filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fbb03b', endColorstr='#da5a27', GradientType=0);
+    color: #f3f3f3;
+}

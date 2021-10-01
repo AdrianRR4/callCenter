@@ -1,7 +1,13 @@
-{
+  {
   "name": "callCenter",
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies":[
+    {
+      "path": "/app",
+      "proxyUrl": "https://5298967-sb1.restlets.api.netsuite.com/app"
+    }
+  ]
 }

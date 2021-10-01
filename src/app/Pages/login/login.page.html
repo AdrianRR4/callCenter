@@ -1,0 +1,59 @@
+<ion-content>
+  <ion-card>
+      <div class="gradiente">
+          <ion-card-header class="content">
+              <ion-img src="../assets/logo_potogas_2.png"></ion-img>
+              <ion-card-title class="content-center">
+                  <br />
+                  <ion-label class="color"></ion-label>
+                  <br />
+                  <ion-label style="text-align: center" class="color">Atención a clientes
+                  </ion-label>
+              </ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="content-center">
+              <form (ngSubmit)="getUserInformationForm(form)" #form="ngForm">
+                  <ion-item color="none" class="color">
+                      <ion-label position="floating">Usuario</ion-label>
+                      <ion-input [(ngModel)]="info.user" palceholder="Usuario" #usertxt="ngModel" name="user" required minlength="5" class="input" [class.is-invalid]="usertxt.invalid && usertxt.touched" required></ion-input>
+
+                      <small class="normal" *ngIf="usertxt.invalid && usertxt.touched">Al menos 6 letras</small
+          >
+        </ion-item>
+        <ion-item color="none" class="color">
+          <ion-label position="floating">Contraseña </ion-label>
+          <ion-input
+            [(ngModel)]="info.password"
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            #passwordtxt="ngModel"
+            required
+            minlength="5"
+            class="input"
+            [class.is-invalid]="passwordtxt.invalid && passwordtxt.touched"
+            [type]="showPassword ? 'text':'password' "
+          ></ion-input>
+          <small
+            class="normal"
+            *ngIf="passwordtxt.invalid && passwordtxt.touched"
+            >Al menos 6 letras</small
+          >
+
+          <ion-icon
+            (click)="toglePassword()"
+            [name]="passwordTogleIcon"
+            slot="end"
+            style="color: cornflowerblue"
+          >
+          </ion-icon>
+        </ion-item>
+
+        <ion-button color="primary" type="submit" expand="block">
+          Ingresar
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </div>
+</ion-card>
+</ion-content>

@@ -1,0 +1,53 @@
+.content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.content-center {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
+}
+
+.bg-orange-grad {
+    background: rgba(251, 176, 59, 1);
+    background: -moz-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(251, 176, 59, 1)), color-stop(100%, rgba(218, 90, 39, 1)));
+    background: -webkit-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    background: -o-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    background: linear-gradient(to bottom, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    //filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fbb03b', endColorstr='#da5a27', GradientType=0);
+    height: 100%;
+}
+
+ion-card {
+    height: 400px;
+    width: 300px;
+    top: 25%;
+    margin: auto;
+    background-color: transparentize($color: #476b6b, $amount: 0.1);
+}
+
+ion-img {
+    height: 25%;
+    width: 25%;
+}
+
+.button {
+    margin-top: 2rem;
+}
+
+.color {
+    color: white;
+}
+
+.gradiente {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(24deg, #f68e1d 13%, #0009c2 79%);
+    background: -moz-linear-gradient(24deg, #f68e1d 13%, #0009c2 79%);
+    background: -webkit-linear-gradient(24deg, #f68e1d 13%, #0009c2 79%);
+    box-shadow: 7px 8px 12px #e8e8e8;
+}

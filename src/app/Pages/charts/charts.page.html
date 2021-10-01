@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Estadisticos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-grid>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card class="welcome-card">
+        <ion-card-header>
+          <ion-card-subtitle>Ventas mensuales</ion-card-subtitle>
+          <ion-card-title>Programado</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #barChart></canvas>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card class="welcome-card">
+        <ion-card-header>
+          <ion-card-subtitle> Cilindros</ion-card-subtitle>
+          <ion-card-title>Cantidades vendidas</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #doughnut></canvas>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-card class="welcome-card">
+        <ion-card-header>
+          <ion-card-subtitle>Fidelidad</ion-card-subtitle>
+          <ion-card-title>Quejas</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #complaint></canvas>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

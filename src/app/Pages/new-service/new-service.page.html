@@ -1,0 +1,843 @@
+<app-header-home [title]="title"></app-header-home>
+
+<ion-content>
+  <ion-card>
+    <h3 class="subtituloBlack encabezado">Consulta cliente</h3>
+    <form (ngSubmit)="searchCient(form)" #form="ngForm">
+      <ion-card>
+        <ion-item>
+          <ion-label>Busqueda</ion-label>
+          <ion-select [(ngModel)]="orderItem.tipeSearch" interface="popover" name="tipoBusqueda" cancelText="Cancelar"
+            okText="Ok" placeholder="Tipo de busqueda" class="normal" #tipoBusqueda="ngModel">
+            <ion-select-option value="1">Teléfono</ion-select-option>
+            <ion-select-option value="2">Dirección</ion-select-option>
+          </ion-select>
+          <small *ngIf="tipoBusqueda.invalid && tipoBusqueda.touched" class="form-text text-danger">Campo
+            obligatorio</small>
+          <ion-icon slot="start" name="search-circle"></ion-icon>
+        </ion-item>
+
+        <div *ngIf="orderItem.tipeSearch==1">
+          <ion-item>
+            <ion-label position="floating"> Teléfono </ion-label>
+            <ion-input [(ngModel)]="searchForm.phone" type="search" name="phone" required #phone="ngModel"></ion-input>
+            <small *ngIf="phone.invalid && phone.touched" class="form-text text-danger">Campo obligatorio</small>
+            <ion-icon slot="start" name="call"></ion-icon>
+          </ion-item>
+        </div>
+
+        <div *ngIf="orderItem.tipeSearch==2">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="6">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating"> Nombre </ion-label>
+                    <ion-input [(ngModel)]="searchForm.name" type="text" name="name"></ion-input>
+                    <ion-icon slot="start" name="person"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating"> Colonia </ion-label>
+                    <ion-input [(ngModel)]="searchForm.colonia" type="text" name="direccion" #direccion="ngModel"
+                      required></ion-input>
+                    <small *ngIf="direccion.invalid && direccion.touched" class="form-text text-danger">Campo
+                      obligatorio</small>
+                    <ion-icon slot="start" name="navigate"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Calle </ion-label>
+                    <ion-input [(ngModel)]="searchForm.nameStreet" type="text" name="calle" #calle="ngModel" required>
+                    </ion-input>
+                    <small *ngIf="calle.invalid && calle.touched" class="form-text text-danger">Campo
+                      obligatorio</small>
+                    <ion-icon slot="start" name="locate"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Número Externo </ion-label>
+                    <ion-input [(ngModel)]="searchForm.numExterno" type="text" name="noExterno" #noExterno="ngModel"
+                      required></ion-input>
+                    <small *ngIf="noExterno.invalid && noExterno.touched" class="form-text text-danger">Campo
+                      obligatorio</small>
+                    <ion-icon slot="start" name="compass"></ion-icon>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col size="6">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating"> Estado </ion-label>
+                    <ion-input [(ngModel)]="searchForm.stateName" type="text" name="estado" #estado="ngModel" required>
+                    </ion-input>
+                    <small *ngIf="estado.invalid && estado.touched" class="form-text text-danger">Campo
+                      obligatorio</small>
+                    <ion-icon slot="start" name="map"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Ciudad </ion-label>
+                    <ion-input [(ngModel)]="searchForm.city" type="text" name="ciudad" #ciudad="ngModel" required>
+                    </ion-input>
+                    <small *ngIf="ciudad.invalid && ciudad.touched" class="form-text text-danger">Campo
+                      obligatorio</small>
+                    <ion-icon slot="start" name="business"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Zip</ion-label>
+                    <ion-input [(ngModel)]="searchForm.zip" type="text" name="zip" #zip="ngModel" required></ion-input>
+                    <small *ngIf="zip.invalid && zip.touched" class="form-text text-danger">Campo obligatorio</small>
+                    <ion-icon slot="start" name="golf"></ion-icon>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+        <ion-grid fixed>
+          <div *ngIf="enable">
+            <ion-item>
+              <ion-buttons slot="end">
+                <ion-button (click)="enable=false">
+                  <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+            <ion-row>
+              <ion-col size="12" *ngFor="let information of informationShow.data">
+                <ion-list>
+                  <ion-item>
+                    <ion-label>Id </ion-label>
+
+                    <!--    <ion-input [(ngModel)]="idCustomer" type="text" id="idCustomer" name="idCustomer" [value]=a.id> {{a.id}}</ion-input>-->
+                    <ion-label>{{information.id}}</ion-label>
+                    <!--  <ion-input [(ngModel)]="dataNewService.customer" type="text" name="idCustomer" #idCustomer="ngModel" placeholder="{{a.id}}">
+                                    {{a.id}}
+                                </ion-input>-->
+                    <ion-icon slot="start" name="information" style="color: #355da7"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Nombre</ion-label>
+                    <ion-label>{{information.nombreCompleto}}</ion-label>
+                    <ion-icon slot="start" name="person" style="color: #355da7"></ion-icon>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>Teléfono</ion-label>
+                    <ion-label>{{information.telefono}}</ion-label>
+                    <ion-icon slot="start" name="phone-portrait" style="color: #355da7"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Teléfono alternativo</ion-label>
+                    <ion-label>{{information.telefonoAlt}}</ion-label>
+                    <ion-icon slot="start" name="call"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-label>{{information.email}}</ion-label>
+                    <ion-icon slot="start" name="mail" style="color: #355da7"></ion-icon>
+                  </ion-item>
+                
+               
+                      <ion-item >
+                        <ion-label>Dirección</ion-label>
+                        <ion-label>{{add}}</ion-label>
+                        <ion-icon slot="start" name="home"></ion-icon>
+                      </ion-item>
+                    
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <ion-row>
+            <ion-col size="12" style="text-align: center">
+              <ion-button (click)="searchCient(form)" class="color">
+                <ion-icon slot="start" name="search-circle" style="color: white"></ion-icon>Buscar
+              </ion-button>
+              <!--  <ion-button (click)="cleanFormSearch()" class="color">
+                                <ion-icon slot="start" name="search-circle" style="color: white;"></ion-icon>Limpiar</ion-button>-->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </form>
+
+    <div *ngIf="enableShowCustomer">
+      <ion-card>
+        <ion-item>
+          <ion-buttons slot="end">
+            <ion-button (click)="enableShowCustomer=false">
+              <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Id</ion-label>
+          <ion-label>{{customerDataSearch.id}}</ion-label>
+          <ion-icon slot="start" name="information" style="color: #355da7"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Nombre</ion-label>
+          <ion-label>{{customerDataSearch.nombreCompleto}}</ion-label>
+          <ion-icon slot="start" name="person" style="color: #355da7"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Teléfono</ion-label>
+          <ion-label>{{customerDataSearch.telefono}}</ion-label>
+          <ion-icon slot="start" name="call" style="color: #355da7"></ion-icon>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <ion-label>{{customerDataSearch.email}}</ion-label>
+          <ion-icon slot="start" name="add" style="color: #355da7"></ion-icon>
+        </ion-item>
+
+       
+      </ion-card>
+    </div>
+
+    <!--aqui comienza el FORMULARIO NUEVO SERVICIO-->
+
+    <form (ngSubmit)="newService(form2)" #form2="ngForm">
+      <ion-card>
+        <h3 class="subtituloBlack encabezado">Pedido</h3>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item class="normalBlack">
+                <ion-label>Tipo de servicio </ion-label>
+                <ion-icon slot="start" name="construct"></ion-icon>
+                <ion-select [(ngModel)]="dataNewService.typeservice" interface="popover" name="tipoServicio"
+                  cancelText="Cancelar" okText="Ok" class="normal" name="tipoServicio" #tipoServicio="ngModel" required>
+                  <ion-select-option value="1">Pedido</ion-select-option>
+                  <ion-select-option value="2">Quejas</ion-select-option>
+                  <ion-select-option value="3">Fugas</ion-select-option>
+                </ion-select>
+                <small *ngIf="tipoServicio.invalid && tipoServicio.touched" class="form-text text-danger">Campo
+                  obligatorio</small>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label>Zona de venta</ion-label>
+                <ion-select interface="popover" name="zonaVenta" cancelText="Cancelar" okText="Ok"
+                  placeholder="Servicio" class="normal">
+                  <ion-select-option value="1">Zona 1</ion-select-option>
+                  <ion-select-option value="2">Zona 2</ion-select-option>
+                  <ion-select-option value="3">Zona 3</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item class="normalBlack">
+                <ion-label>Origen</ion-label>
+                <ion-icon slot="start" name="pin"></ion-icon>
+                <ion-select [(ngModel)]="dataNewService.origen" interface="popover" name="origen" cancelText="Cancelar"
+                  okText="Ok" class="normal" name="origen" #origen="ngModel" required>
+                  <ion-select-option value="1">WhatsApp</ion-select-option>
+                  <ion-select-option value="2">Poto App</ion-select-option>
+                  <ion-select-option value="3">Face Book</ion-select-option>
+                  <ion-select-option value="4">Call Center</ion-select-option>
+                  <ion-select-option value="5">Página Web</ion-select-option>
+                </ion-select>
+                <small *ngIf="origen.invalid && origen.touched" class="form-text text-danger">Campo obligatorio</small>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label> Método de Pago </ion-label>
+                <ion-icon slot="start" name="wallet"></ion-icon>
+                <ion-select [(ngModel)]="dataNewService.paymentMethod" interface="popover" name="formaPago"
+                  cancelText="Cancelar" okText="Ok" placeholder="Selecciona" class="normal" #formaPago="ngModel"
+                  required>
+                  <ion-select-option value="1">Efectivo</ion-select-option>
+                  <ion-select-option value="2">Prepago</ion-select-option>
+                  <ion-select-option value="3">Vale</ion-select-option>
+                  <ion-select-option value="4">Cortesia</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item>
+                <ion-label class="normal" position="floating" name="observaciones">Observaciones</ion-label>
+                <ion-textarea name="observaciones"></ion-textarea>
+                <ion-icon slot="start" name="reader"></ion-icon>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+              <!--   <div *ngIf="orderItem.article==1754">
+                            <h1>hola</h1>
+
+                        </div>-->
+              <div *ngIf="dataNewService.paymentMethod=='2'">
+                <ion-item>
+                  <ion-label class="normal" position="floating">Folio Autorización</ion-label>
+                  <ion-input [(ngModel)]="dataNewService.folio" name="folio" type="text" #folio="ngModel"></ion-input>
+                  <ion-icon slot="start" name="reader"></ion-icon>
+                </ion-item>
+                <ion-item>
+                  <ion-label class="normal" position="floating">Referencia</ion-label>
+                  <ion-input [(ngModel)]="dataNewService.reference" name="referencia" #referencia="ngModel">
+                  </ion-input>
+                  <ion-icon slot="start" name="receipt"></ion-icon>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+
+      <!--Formulario Queja-->
+      <div *ngIf="dataNewService.typeservice==2">
+        <ion-card>
+          <h3 class="subtituloBlack encabezado">Reportar Queja</h3>
+          <form (ngSubmit)="complain(form3)" #form3="ngForm">           
+<ion-card>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6"></ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Fecha</ion-label>
+          <ion-datetime [(ngModel)]="dataFormComplain.date" display-format="DD.MM.YYYY " name="date" required></ion-datetime>
+          <ion-icon slot="start" name="calendar"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Queja Número</ion-label>
+          <ion-input  [(ngModel)]="dataFormComplain.complaint" type="number" name="complain" min="1" pattern="^[0-9]+" required></ion-input>
+          <ion-icon slot="start" name="clipboard"></ion-icon>
+          <small *ngIf="origen.invalid && origen.touched" class="form-text text-danger">Campo
+            obligatorio</small>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Concepto</ion-label>
+          <ion-select [(ngModel)]="dataFormComplain.concept" interface="popover" required name="concepto">
+            <ion-select-option value="1">Mal servicio</ion-select-option>
+            <ion-select-option value="2">Cantidad irregular</ion-select-option>
+            <ion-select-option value="3">No llegó el vendedor</ion-select-option>
+          </ion-select>
+          <ion-icon slot="start" name="alert"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+              <ion-card>
+                <ion-grid fixed name="asociar">
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-item>
+                      <ion-label position="floating">Asociar a servicio</ion-label>
+                      <ion-input type="text" name="asociateService"></ion-input>
+                      <ion-icon slot="start" name="search"></ion-icon>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-item>
+                      <ion-label position="floating" name="asociateOtherCase" required>Asociar a otro caso</ion-label>
+                      <ion-input type="text"></ion-input>
+                      <ion-icon slot="start" name="search"></ion-icon>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              </ion-card>
+              
+<ion-card>
+   <ion-grid fixed name="text areas">
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-item>
+                      <ion-label position="floating">Detalle del caso</ion-label>
+                      <ion-textarea [(ngModel)]="dataFormComplain.details" required name="detailCase"></ion-textarea>
+                      <ion-icon slot="start" name="document"></ion-icon>
+                    </ion-item>
+
+                  </ion-col>
+
+                  <ion-col size="6">
+                    <ion-item>
+                      <ion-label position="floating">Agregar comentario </ion-label>
+                      <ion-textarea name="addComentary"></ion-textarea>
+                      <ion-icon slot="start" name="add"></ion-icon>
+                    </ion-item>
+
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+</ion-card>
+             
+              <ion-row>
+                <ion-col size="12" style="text-align: center">
+                  <ion-button (click)="newComplain(form3)" class="color">
+                    <ion-icon slot="start" name="send" style="color: white"></ion-icon>Enviar
+                  </ion-button>
+
+                </ion-col>
+              </ion-row>
+            
+
+          </form>
+        </ion-card>
+      </div>
+      <!--Formulario Reportar Fuga Formulario 4  -->
+      <div *ngIf="dataNewService.typeservice==3">
+        <ion-card>
+          <h3 class="subtituloBlack encabezado">Reportar Fuga </h3>
+          <ion-card>
+         <ion-grid fixed name="date">
+  <ion-row>
+    <ion-col size="6"></ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label>Fecha de reporte</ion-label>
+        <ion-datetime display-format="DD.MM.YYYY "></ion-datetime>
+        <ion-icon slot="start" name="calendar"></ion-icon>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+       
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Asociar a servicio</ion-label>
+        <ion-input type="text" placeholder="Id"></ion-input>
+        <ion-icon slot="start" name="search"></ion-icon>
+      </ion-item>
+    </ion-col>
+    
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Asociar a otro caso</ion-label>
+        <ion-input type="text" placeholder="Id"></ion-input>
+        <ion-icon slot="start" name="search"></ion-icon>
+      </ion-item>
+    </ion-col>  
+  </ion-row>
+</ion-grid>   
+          </ion-card>
+
+<ion-card>
+  <ion-grid fixed name="domicilio">
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Domicilio</ion-label>
+          <ion-textarea></ion-textarea>
+          <ion-icon slot="start" name="create"></ion-icon>
+        </ion-item>
+      </ion-col>
+      </ion-row>
+  </ion-grid>
+  
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Confirmar</ion-label>
+          <ion-checkbox color="primary"></ion-checkbox>
+          <ion-icon slot="start" name="checkmark"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Actualizar</ion-label>
+          <ion-icon slot="start" name="pencil"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+
+<ion-card>
+  
+         
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Concepto</ion-label>
+        <ion-select interface="popover" required name="concepto">
+          <ion-select-option value="1">Mal servicio</ion-select-option>
+          <ion-select-option value="2">Cantidad irregular</ion-select-option>
+          <ion-select-option value="3">No llegó el vendedor</ion-select-option>
+        </ion-select>
+        <ion-icon slot="start" name="alert"></ion-icon>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Prioridad</ion-label>
+        <ion-select interface="popover" required name="prioridad">
+          <ion-select-option value="1">Alta</ion-select-option>
+          <ion-select-option value="2">Media</ion-select-option>
+          <ion-select-option value="3">Baja</ion-select-option>
+        </ion-select>
+        <ion-icon slot="start" name="hammer"></ion-icon>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label>Detalle del Caso</ion-label>
+        <ion-textarea aria-placeholder="Indicaciones cliente"></ion-textarea>
+        <ion-icon slot="start" name="document"></ion-icon>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label>Agregar comentario</ion-label>
+        <ion-textarea></ion-textarea>
+        <ion-icon slot="start" name="add"></ion-icon>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-card>
+
+<ion-card>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Producto Instalado</ion-label>
+          <ion-select interface="popover" required name="instalado">
+            <ion-select-option value="1">Estacionario</ion-select-option>
+            <ion-select-option value="2">Cilindro</ion-select-option>
+            <ion-select-option value="3">Otro</ion-select-option>
+          </ion-select>
+          <ion-icon slot="start" name="hammer"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+<ion-item>
+  <ion-label>Capacidad</ion-label>
+  <ion-icon slot="start" name="beaker"></ion-icon>
+</ion-item>
+<ion-item>
+  <ion-label>Año</ion-label>
+</ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+
+<ion-card>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>Fecha vista</ion-label>
+          <ion-datetime display-format="DD.MM.YYYY"></ion-datetime>
+          <ion-icon slot="start" name="calendar"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+      <ion-item>
+        <ion-label>Horario preferido</ion-label>
+        <ion-icon slot="start" name="watch"></ion-icon>
+      </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+<ion-item>
+  <ion-label>Y las </ion-label>
+
+</ion-item>
+      </ion-col>
+     
+    </ion-row>
+  </ion-grid>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Especificaciones</ion-label>
+          <ion-textarea></ion-textarea>
+          <ion-icon slot="start" name="clipboard"></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+<ion-row>
+  <ion-col size="12" style="text-align: center">
+    <ion-button class="color">
+      <ion-icon slot="start" name="save" style="color: white"></ion-icon>Guardar
+    </ion-button>
+
+  </ion-col>
+</ion-row>
+        </ion-card>
+      </div>
+
+
+      <!--aqui comienza el FORMULARIO AGREGAR PRODUCTO-->
+      <ion-card>
+        <form (ngSubmit)="addProduct(form1)" #form1="ngForm">
+          <h3 class="subtituloBlack encabezado">Articulo</h3>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item class="normalBlack">
+                  <ion-label>Producto </ion-label>
+                  <ion-icon slot="start" name="clipboard"></ion-icon>
+                  <ion-select [(ngModel)]="orderItem.unit" interface="popover" name="producto" class="normal"
+                    (click)="enable=false" #producto="ngModel" required>
+                    <ion-select-option value="1754">Cilindro</ion-select-option>
+                    <ion-select-option value="1755">Estacionario</ion-select-option>
+                  </ion-select>
+                  <small *ngIf="producto.invalid && producto.touched" class="form-text text-danger">Campo
+                    obligatorio</small>
+                </ion-item>
+                <!--   <div *ngIf="orderItem.article==1754">
+                    <h1>hola</h1>
+
+                </div>-->
+                <ion-item class="normalBlack">
+                  <ion-label>Cantidad </ion-label>
+                  <ion-input [(ngModel)]="orderItem.quantity" type="number" name="cantidad" #cantidad="ngModel" required
+                    min="1" pattern="^[0-9]+"></ion-input>
+                  <small *ngIf="cantidad.invalid && cantidad.touched" class="form-text text-danger">Ingrese una
+                    cantidad</small>
+                  <ion-icon slot="start" name="add-circle"></ion-icon>
+                </ion-item>
+
+              </ion-col>
+              <!--  <ion-col size="6">
+                            <ion-item class="normalBlack">
+                                <ion-label>Articulo </ion-label>
+                                <ion-icon slot="start" name="beaker"></ion-icon>
+                                <ion-select [(ngModel)]="orderItem.article" interface="popover" name="capacidad" cancelText="Cancelar" okText="Ok" class="normal" #capacidad="ngModel" required>
+                                    <ion-select-option value="1753"> GAS LP</ion-select-option>
+                                    <ion-select-option value="1754">CILINDRO DE GAS LP CAP. 30 KGS</ion-select-option>
+                                    <ion-select-option value="1755">CILINDRO DE GAS LP CAP. 20 KGS</ion-select-option>
+                                    <ion-select-option value="1756">TANQUE ESTACIONARIO 120 LTS</ion-select-option>
+                                    <ion-select-option value="1757">TANQUE ESTACIONARIO 180 LTS</ion-select-option>
+                                    <small *ngIf="capacidad.invalid && capacidad.touched" class="form-text text-danger">Campo obligatorio</small>
+                    </ion-select>
+                </ion-item>
+                -->
+              <ion-col size="6">
+                <ion-item class="normalBlack">
+                  <ion-label>Articulo</ion-label>
+                  <ion-icon slot="start" name="pricetag"></ion-icon>
+                  <ion-select interface="popover" [(ngModel)]="orderItem.article" name="articulo"
+                    (ionChange)="onChange($event)">
+                    <ion-select-option *ngFor="let article of infoArticle.data" [value]="article">{{article.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+
+              <!--- <ion-item class="normalBlack">
+                                <ion-label>Capacidad </ion-label>
+                                <ion-icon slot="start" name="beaker"></ion-icon>
+                                <ion-select [(ngModel)]="orderItem.unit" interface="popover" name="capacidad" cancelText="Cancelar" okText="Ok" class="normal" #capacidad="ngModel" required>
+                                    <ion-select-option value="1"> 20 kg</ion-select-option>
+                                    <ion-select-option value="2">30 kg</ion-select-option>
+                                    <ion-select-option value="3">40 kg</ion-select-option>
+                                    <ion-select-option value="4">50 kg</ion-select-option>
+                                    <small *ngIf="capacidad.invalid && capacidad.touched" class="form-text text-danger">Campo obligatorio</small>
+                                </ion-select>
+                            </ion-item>
+                            ->
+                            <!--   <div *ngIf="orderItem.article==1754">
+                    <ion-item>
+                        <ion-label>Envase</ion-label>
+                        <ion-checkbox [(ngModel)]="orderItem.envase" color="primary" name="envase"></ion-checkbox>
+                    </ion-item>
+                </div>-->
+            </ion-row>
+          </ion-grid>
+          <ion-row>
+            <ion-col size="12" style="text-align: center">
+              <ion-button (click)="addProduct(form1)" class="color">
+                <ion-icon slot="start" name="add" style="color: white"></ion-icon>Agregar
+              </ion-button>
+
+              <!--       <ion-button class="color">
+                            <ion-icon slot="start" name="close" style="color: white;"></ion-icon>Cancelar</ion-button>-->
+            </ion-col>
+          </ion-row>
+
+          <ion-grid>
+            <ion-row style="border-bottom: groove" class="ion-text-center">
+              <ion-col size="3">
+                <ion-label>Id</ion-label>
+              </ion-col>
+              <ion-col size="3">
+                <ion-label>Artículo</ion-label>
+              </ion-col>
+
+              <ion-col size="3">
+                <ion-label>Cantidad</ion-label>
+              </ion-col>
+              <ion-col size="3">
+                <ion-label>Acción</ion-label>
+              </ion-col>
+              <!--<ion-col size="3">
+                <ion-label>Envase</ion-label>
+            </ion-col>-->
+            </ion-row>
+
+            <ion-row *ngFor="let item of listItems; let i=index" class="ion-text-center">
+              <ion-col size="3">
+                <ion-label>{{item.units}}</ion-label>
+              </ion-col>
+              <ion-col size="3">
+                <ion-label>{{item.article.name}}</ion-label>
+              </ion-col>
+
+              <ion-col size="3">
+                <ion-label>{{item.quantity}}</ion-label>
+              </ion-col>
+              <ion-col size="3">
+                <ion-icon (click)="delete(i)" name="trash-bin"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-card>
+
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12"> </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-card>
+        <h3 class="subtituloBlack encabezado">Programación</h3>
+
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">
+              <h4 class="subtitulo2 encabezado">Frecuencia</h4>
+
+              <ion-item>
+                <ion-label class="normal" position="floating"> Cada </ion-label>
+                <ion-input class="normal" type="number" inputmode="text" name="calle"></ion-input>
+                <ion-icon slot="start" name="notifications"></ion-icon>
+              </ion-item>
+
+              <ion-item class="normalBlack">
+                <ion-label>Frecuencia</ion-label>
+                <ion-select interface="popover" name="poblacion" cancelText="Cancelar" okText="Ok"
+                  placeholder="Selecciona" class="normal">
+                  <ion-select-option value="1230">Semanas</ion-select-option>
+                  <ion-select-option value="1030">Meses</ion-select-option>
+                  <ion-select-option value="1040">Días</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+              <h4 class="subtitulo2 encabezado">Horario Preferido</h4>
+              <ion-item>
+                <ion-label class="normal" position="floating">
+                  Entre las:
+                </ion-label>
+                <ion-datetime [(ngModel)]="dataNewService.rangeH1" displayFormat="h:mm a" picker-format="h:mm A"
+                  name="hora1" #hora1="ngModel" required></ion-datetime>
+                <ion-icon slot="start" name="watch"></ion-icon>
+              </ion-item>
+              <ion-item>
+                <ion-label class="normal" position="floating">
+                  y las:</ion-label>
+                <ion-datetime [(ngModel)]="dataNewService.rangeH2" displayFormat="h:mm a" picker-format="h:mm A"
+                  name="hora2" #hora2="ngModel" required></ion-datetime>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+              <h4 class="subtitulo2 encabezado">Día de la semana</h4>
+
+              <ion-item class="normalBlack">
+                <ion-label>Días</ion-label>
+                <ion-icon slot="start" name="calendar"></ion-icon>
+                <ion-select [(ngModel)]="dataNewService.weekDay" multiple="true" interface="popover" name="poblacion"
+                  cancelText="Cancelar" okText="Ok" placeholder="Selecciona el día" class="normal" #poblacion="ngModel"
+                  required>
+                  <ion-select-option value="1">Lunes </ion-select-option>
+                  <ion-select-option value="2">Martes</ion-select-option>
+                  <ion-select-option value="3">Míercoles</ion-select-option>
+                  <ion-select-option value="4">Jueves</ion-select-option>
+                  <ion-select-option value="5">Viernes</ion-select-option>
+                  <ion-select-option value="6">Sabado</ion-select-option>
+                  <ion-select-option value="7">Domingo</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="6">
+              <h4 class="subtitulo2 encabezado">Tipo de acción</h4>
+              <ion-item>
+                <ion-label>Acción</ion-label>
+                <ion-select multiple="true" interface="popover" name="accion" cancelText="Cancelar" okText="Ok"
+                  placeholder="Selecciona el día" class="normal">
+                  <ion-select-option value="1">Teléfono </ion-select-option>
+                  <ion-select-option value="2">Aviso</ion-select-option>
+                  <ion-select-option value="3">Programar</ion-select-option>
+                </ion-select>
+                <ion-icon slot="start" name="call"></ion-icon>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" style="text-align: center">
+              <ion-item>
+                <ion-label class="normal" position="floating">Indicaciones</ion-label>
+                <ion-textarea [(ngModel)]="dataNewService.comentary" name="comentario" #comentario="ngModel">
+                </ion-textarea>
+                <ion-icon slot="start" name="create"></ion-icon>
+              </ion-item>
+              <br />
+              <ion-button (click)="newService(form2)" class="color">
+                <ion-icon slot="start" name="save" style="color: white"></ion-icon>Enviar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </form>
+  </ion-card>
+</ion-content>

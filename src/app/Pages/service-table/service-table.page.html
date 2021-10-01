@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Servicios</ion-title>
+    <ion-fab vertical="bottom" horizontal="center" (click)="createService()">
+      <ion-fab-button size="small">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+
+    <ion-card-content>
+      <ion-searchbar [formControl]="searchControl"></ion-searchbar>
+      <ion-grid class="table">
+        <ion-row class="table_head ion-align-items-center">
+          <ion-col></ion-col>
+          <ion-col>Id Servicio</ion-col>
+          <ion-col>Tipo Servicio</ion-col>
+          <ion-col>Fecha solicitud</ion-col>
+          <ion-col>Estado</ion-col>
+        </ion-row>
+        <ion-row class="table_body" *ngFor="let service of services">
+          <ion-col>
+            <ion-checkbox></ion-checkbox>
+          </ion-col>
+          <ion-col>{{service.internalId}}</ion-col>
+          <ion-col>{{service.typeService}}</ion-col>
+          <ion-col>{{service.dateSolic}}</ion-col>
+          <ion-col>{{service.status}}</ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Cargando mas servicios...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

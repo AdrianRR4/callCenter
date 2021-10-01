@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>Información de domicilio</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div *ngFor="let addr of customer.addr">
+  <ion-card *ngIf="addr.defaultShipping===true">
+      <ion-card-content>
+          <div class="content">
+              <ion-item lines="none" style="width: 25rem">
+                  <ion-label>Calle</ion-label>
+                  <ion-input disabled [ngModel]="addr.nameStreet"></ion-input>
+              </ion-item>
+              <ion-item lines="none">
+                  <ion-label>Número Exterior</ion-label>
+                  <ion-input disabled [ngModel]="addr.numExterno"></ion-input>
+              </ion-item>
+              <ion-item lines="none">
+                  <ion-label>Número Interior:</ion-label>
+                  <ion-input disabled [ngModel]="addr.numInterno"></ion-input>
+              </ion-item>
+          </div>
+
+          <div class="content">
+              <ion-item lines="none" class="item-control">
+                  <ion-label>Estado:</ion-label>
+                  <ion-input disabled [ngModel]="addr.stateName"></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="item-control">
+                  <ion-label>City</ion-label>
+                  <ion-input disabled [ngModel]="addr.city"></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="item-control">
+                  <ion-label>Zip</ion-label>
+                  <ion-input disabled [ngModel]="addr.zip"></ion-input>
+              </ion-item>
+          </div>
+
+          <div class="content">
+              <ion-item lines="none">
+                  <ion-label>Colonia</ion-label>
+                  <ion-input disabled [ngModel]="addr.colonia"></ion-input>
+              </ion-item>
+              <ion-item lines="none">
+                  <ion-label>Poblacion</ion-label>
+                  <ion-input disabled [ngModel]="addr.colonia"></ion-input>
+              </ion-item>
+          </div>
+      </ion-card-content>
+  </ion-card>
+</div>

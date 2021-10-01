@@ -1,0 +1,159 @@
+<ion-header style="text-align: center;">
+  <ion-toolbar>
+      <h3 class="subtituloBlack encabezado">Ingrese datos del domicilio</h3>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+
+
+  <ion-content class="ion-pading">
+      <!-- <h3 class="subtituloBlack encabezado">Ingrese datos de la dirección</h3>-->
+      <form (ngSubmit)="address(form)" #form="ngForm">
+          <ion-card>
+
+              <ion-grid fixed>
+                  <ion-row>
+                      <ion-col size="12">
+
+                          <ion-item>
+                              <ion-label class="normal" position="floating"> Calle </ion-label>
+                              <ion-input [(ngModel)]="dataFormAdress.nameStreet" name="calle" class="normal" type="text" inputmode="text" #calle="ngModel" required></ion-input>
+                              <small *ngIf="calle.invalid && calle.touched" class="form-text text-danger">Calle es un campo obligatorio</small>
+                              <ion-icon slot="start" name="locate"></ion-icon>
+                          </ion-item>
+                      </ion-col>
+
+                  </ion-row>
+              </ion-grid>
+              <ion-grid fixed>
+                  <ion-row>
+
+                      <ion-col size="6">
+                          <ion-item>
+                              <ion-label position="floating">Ciudad</ion-label>
+                              <ion-input [(ngModel)]="dataFormAdress.city" name="ciudad" class="normal" type="text" inputmode="text" #ciudad="ngModel" required></ion-input>
+                              <small *ngIf="ciudad.invalid && ciudad.touched" class="form-text text-danger">Ciudad es un campo obligatorio</small>
+                              <ion-icon slot="start" name="business"></ion-icon>
+                          </ion-item>
+
+                      </ion-col>
+
+                      <ion-col size="6">
+                          <ion-item>
+                              <ion-label position="floating"> Estado</ion-label>
+                              <ion-input [(ngModel)]="dataFormAdress.stateName" type="text" name="estado" #estado="ngModel" required></ion-input>
+                              <small *ngIf="estado.invalid && estado.touched" class="form-text text-danger">Estado es un campo obligatorio</small>
+                              <ion-icon slot="start" name="map"></ion-icon>
+                          </ion-item>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+              <ion-grid fixed>
+                  <ion-row>
+                      <ion-col size="6">
+
+                          <ion-item>
+                              <ion-label class="normal" position="floating"> Nº Interior </ion-label>
+                              <ion-input [(ngModel)]="dataFormAdress.numInterno" name="noInterior" class="normal" type="text" inputmode="text" #noInterior="ngModel" required></ion-input>
+                              <ion-icon slot="start" name="trail-sign"></ion-icon>
+                          </ion-item>
+
+                          <!-- <ion-item>
+                          <ion-label class="normal" position="floating"> Entre calle </ion-label>
+                          <ion-input name="entreCalle" class="normal" type="text" inputmode="text"></ion-input>
+                      </ion-item>-->
+                      </ion-col>
+
+                      <ion-col size="6">
+
+                          <ion-item>
+                              <ion-label class="normal" position="floating"> Nº Exterior </ion-label>
+                              <ion-input [(ngModel)]="dataFormAdress.numExterno" name="noExterior" class="normal" type="text" inputmode="text" #noExterior="ngModel"></ion-input>
+
+                          </ion-item>
+
+                          <!--  <ion-item>
+                          <ion-label class="normal" position="floating"> calle </ion-label>
+                          <ion-input name="y_calle" class="normal" type="text" inputmode="text"></ion-input>
+                      </ion-item>
+                  -->
+
+                      </ion-col>
+                  </ion-row>
+                  <ion-grid fixed>
+                      <ion-row>
+                          <ion-col size="6">
+
+                              <ion-item>
+                                  <ion-label class="normal" position="floating"> Código Postal (Zip) </ion-label>
+                                  <ion-input [(ngModel)]="dataFormAdress.zip" name="codigo" class="normal" type="text" inputmode="text" #codigo="ngModel" required></ion-input>
+                                  <small *ngIf="codigo.invalid && codigo.touched" class="form-text text-danger">Código postal es un campo obligatorio</small>
+                                  <ion-icon slot="start" name="keypad"></ion-icon>
+                              </ion-item>
+
+                              <!-- <ion-item class="normalBlack">
+                              <ion-label>Colonia</ion-label>
+                              <ion-icon slot="start" name="golf"></ion-icon>
+                              <ion-select name="colonia" interface="popover" cancelText="Cancelar" okText="Ok" placeholder="Colonia" style="color: #f3f3f3" class="normal">
+                                  <ion-select-option value="1230">San Pablo</ion-select-option>
+                                  <ion-select-option value="1030">Pemsamientos</ion-select-option>
+                                  <ion-select-option value="1040">Benito Juarez</ion-select-option>
+                                  <ion-select-option value="1050">Narvarte</ion-select-option>
+                              </ion-select>
+
+                          </ion-item>
+-->
+                          </ion-col>
+                          <ion-col size="6">
+
+                              <ion-item>
+                                  <ion-label position="floating">Colonia</ion-label>
+                                  <ion-input [(ngModel)]="dataFormAdress.colonia" name="colonia" type="text" #colonia="ngModel" required></ion-input>
+                                  <small *ngIf="colonia.invalid && colonia.touched" class="form-text text-danger">Colonia postal es un campo obligatorio</small>
+                                  <ion-icon slot="start" name="golf"></ion-icon>
+                              </ion-item>
+                              <!--
+                          <ion-item>
+                              <ion-label class="normal" position="floating"> Zona </ion-label>
+                              <ion-input name="zona" class="normal" type="text" inputmode="text"></ion-input>
+                              <ion-icon slot="start" name="location"></ion-icon>
+                          </ion-item>
+
+                          <ion-item class="normalBlack">
+                              <ion-label>Población </ion-label>
+                              <ion-icon slot="start" name="home"></ion-icon>
+                              <ion-select name="poblacion" interface="popover" cancelText="Cancelar" okText="Ok" placeholder="Colonia" style="color: #f3f3f3" class="normal">
+                                  <ion-select-option value="1230">Las Rosas</ion-select-option>
+                                  <ion-select-option value="1030">Jardines</ion-select-option>
+                                  <ion-select-option value="1040">Girasoles</ion-select-option>
+                                  <ion-select-option value="1050">Magnolias</ion-select-option>
+                              </ion-select>
+                          </ion-item>
+                          -->
+                          </ion-col>
+                      </ion-row>
+                  </ion-grid>
+              </ion-grid>
+
+              <br />
+
+              <ion-grid>
+                  <ion-row>
+                      <ion-col size="12" style="text-align:center">
+                          <ion-button (click)="address(form)" class="color">
+                              <ion-icon slot="start" name="add"></ion-icon>
+                              Agregar</ion-button>
+
+                          <ion-button class="color">
+                              <ion-icon slot="start" name="create-outline"></ion-icon>
+                              Editar</ion-button>
+                      </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </ion-card>
+      </form>
+  </ion-content>

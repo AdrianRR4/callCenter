@@ -1,0 +1,189 @@
+<app-header-home [title]="title"></app-header-home>
+<ion-content>
+  <ion-card class="container">
+    <p>
+      Consulta Clientes
+    </p>
+    <div *ngIf="!customer">
+      <ion-segment color="primary" [(ngModel)]="type" (ionChange)="segmentChanged($event)" scrollable>
+        <ion-segment-button checked value="phone">
+          <ion-label>Telefono</ion-label>
+          <ion-icon name="call"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="direction">
+          <ion-label>Direccion</ion-label>
+          <ion-icon name="map"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+      <div [ngSwitch]="type">
+        <div *ngSwitchCase="'phone'">
+          <form [formGroup]="formCustomerPhone">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input type="text" formControlName="customerName"></ion-input>
+                    <ion-icon name="person" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Telefono</ion-label>
+                    <ion-input type="text" formControlName="customerPhone"></ion-input>
+                    <ion-icon name="call" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="ion-text-center ion-align-items-center">
+                  <ion-button class="btnConsultar" (click)="searchPhone()">Consultar</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </div>
+        <div *ngSwitchCase="'direction'">
+          <form *ngIf="!customer" [formGroup]="formCustomerDirection">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input type="text" formControlName="customerName"></ion-input>
+                    <ion-icon name="person" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Ciudad</ion-label>
+                    <ion-input type="text" formControlName="customerCity"></ion-input>
+                    <ion-icon name="business" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Estado</ion-label>
+                    <ion-input type="text" formControlName="customerState"></ion-input>
+                    <ion-icon name="map" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Calle</ion-label>
+                    <ion-input type="text" formControlName="customerStreet"></ion-input>
+                    <ion-icon name="locate" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Colonia</ion-label>
+                    <ion-input type="text" formControlName="customerSuburb"></ion-input>
+                    <ion-icon name="navigate" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Número Exterior</ion-label>
+                    <ion-input type="text" formControlName="customerExternalnum"></ion-input>
+                    <ion-icon name="compass" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Zip</ion-label>
+                    <ion-input type="text" formControlName="customerZip"></ion-input>
+                    <ion-icon name="golf" slot="start"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="ion-text-center ion-align-items-center">
+                  <ion-button class="btnConsultar" (click)="searchDirection()">Consultar</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+
+    <div *ngIf="customer">
+      <ion-button (click)="newShearch()">
+        <ion-icon color="white" name="search"></ion-icon> Nueva Busqueda
+      </ion-button>
+    </div>
+  </ion-card>
+  <ion-card *ngIf="customer" class="customer_info">
+    <ion-card-header>
+      <ion-title>Cliente</ion-title>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col class="customer_info_icon" text-center size="2">
+              <ion-icon class="person_ico" name="person"></ion-icon>
+            </ion-col>
+            <ion-col class="customer_info_info">
+              <p>
+                Nombre:
+                <ion-title>{{customer.nombreCompleto}}</ion-title>
+              </p>
+              <div *ngFor="let addr of customer.addr">
+                <h4 *ngIf="addr.defaultShipping===true">Dirección: Calle {{addr.nameStreet}} # {{addr.numExterno}} -
+                  {{addr.numInterno}}</h4>
+              </div>
+              <p> Correo: {{customer.email}}</p>
+              <p>Telefono: {{customer.telefono}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <h4>Tipo: Industrial</h4>
+            </ion-col>
+            <ion-col>
+              <h4>Estado: Activo</h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card-header>
+  </ion-card>
+  <ion-card *ngIf="customer" class="card-tabs">
+    <ion-tabs>
+      <ion-tab-bar slot="top">
+        <ion-tab-button tab="service">
+          <ion-icon name="calendar"></ion-icon>
+          <ion-label>Servicios</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="chart">
+          <ion-icon name="bar-chart"></ion-icon>
+          <ion-label>Datos Comerciales</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="address">
+          <ion-icon name="person-circle"></ion-icon>
+          <ion-label>Datos de dirección</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="billing">
+          <ion-icon name="map"></ion-icon>
+          <ion-label>Datos de facturación</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-card>
+  <app-charts *ngIf="customer"></app-charts>
+</ion-content>
+<!--<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>-->

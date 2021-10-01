@@ -1,0 +1,35 @@
+.table_head {
+    background-color: #355da7;
+    color: #fff;
+    height: 50px;
+    text-align: center;
+    font-size: medium;
+  }
+  
+  .table {
+    ion-row:nth-child(even) {
+      background-color: #eee;
+    }
+  }
+  
+  .table_body {
+    text-align: center;
+  
+    ion-col {
+      margin: 3px;
+    }
+  
+  }
+
+
+ion-fab-button{
+  margin: auto;
+}
+
+ion-card-content{
+  height: 95%;
+}
+
+ion-content{
+  margin-bottom: 10px;
+}

@@ -1,0 +1,54 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 2.5rem;
+    margin-bottom: 3.5rem;
+}
+
+.button-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.5rem 2rem;
+}
+
+.item-control {
+    width: 13rem;
+}
+
+.encabezado {
+    background: #e6e6fa;
+    border-radius: 30px;
+    margin: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.btn {
+    // background-color: rgb(53, 93, 167, 0.9);
+    background-color: var( --ion-color-colorbotton);
+    padding: 20px 30px 20px 30px;
+    border-radius: 20px;
+    font-size: 18px;
+    color: white;
+    font-family: 'Roboto Condensed Light', sans-serif;
+    margin: 10px;
+}
+
+.color {
+    --background: rgba(251, 176, 59, 1);
+    --background: -moz-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(251, 176, 59, 1)), color-stop(100%, rgba(218, 90, 39, 1)));
+    --background: -webkit-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -o-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -ms-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: linear-gradient(to bottom, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    // filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fbb03b', endColorstr='#da5a27', GradientType=0);
+    color: #f3f3f3;
+}
+
+ion-icon {
+    color: #F60;
+}

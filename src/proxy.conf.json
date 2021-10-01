@@ -1,0 +1,9 @@
+{
+    "/app/*": {
+        "target": "https://5298967-sb1.restlets.api.netsuite.com/app",
+        "changeOrigin": true,
+        "secure": false,
+        "logLevel": "debug",
+        "pathRewrite": { "^/app/": "" }
+    }
+}

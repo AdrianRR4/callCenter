@@ -1,0 +1,24 @@
+.content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;  
+    margin-top: 2.5rem;
+    margin-bottom: 3.5rem;
+}
+.button-control{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.5rem 2rem;
+}
+.item-control{
+    width: 13rem;
+}
+
+ion-input{
+    margin-left:8px;
+    border-radius: 5%;
+    border: solid 1px #355da7;
+    text-align: center;
+ }

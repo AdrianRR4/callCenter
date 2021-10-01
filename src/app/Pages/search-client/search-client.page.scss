@@ -1,0 +1,94 @@
+.new-header-color {
+    --background: rgba(251, 176, 59, 1);
+    --background: -moz-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(251, 176, 59, 1)), color-stop(100%, rgba(218, 90, 39, 1)));
+    --background: -webkit-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -o-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: -ms-linear-gradient(top, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    --background: linear-gradient(to bottom, rgba(251, 176, 59, 1) 0%, rgba(218, 90, 39, 1) 100%);
+    // filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fbb03b', endColorstr='#da5a27', GradientType=0);
+    color: #f3f3f3;
+  }
+  
+  .card-back {
+    margin: 0;
+    padding: 1em;
+    background: url(../../../assets/bg-blue.jpg);
+    color: #f3f3f3;
+  }
+  
+  .card-blank {
+    background-image: url("../../../assets/bg-texture-01.png");
+    background-size: cover;
+    background-position: center;
+    margin: 0px;
+  }
+  
+  
+  
+  .card-tabs {
+    height: 100%;
+    width: 900px;
+    margin: auto;
+  
+    div {
+      height: 200px;
+      margin: 5px
+    }
+  }
+  
+  .container {
+    margin-left: 20px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+  
+    p {
+      text-align: center;
+      font-size: x-large;
+    }
+  }
+  
+  
+  ion-icon {
+    color: #F60;
+  }
+  
+  .btnConsultar {
+    --background: #f60;
+    width: 50%;
+  }
+  
+  ion-content {
+    background-color: lightgray;
+  }
+  
+  .person_ico {
+    font-size: 5em;
+  }
+  
+  .row {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  .customer_info {
+    margin-left: 20px;
+    margin-right: 40px;
+  
+    .customer_info_icon {
+  
+      margin-right: 20px;
+      text-align: center;
+    }
+  
+    .customer_info_info {
+      margin: auto;
+    }
+  }
+  
+  app-charts {
+    overflow: hidden;
+  }
+  
