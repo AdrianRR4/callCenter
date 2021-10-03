@@ -2,9 +2,8 @@
   "name": "callCenter",
   "version": "1.0.0",
   "description": "An Amazing Capacitor App",
-  "main": "./build/index.js",
   "author": {
-    "name": "Sol4i",
+    "name": "",
     "email": ""
   },
   "repository": {
@@ -15,13 +14,10 @@
   "main": "build/src/index.js",
   "scripts": {
     "build": "tsc && electron-rebuild",
-     "electron:start-live": "node ./live-runner.js",
-     "electron:start": "npm run build && electron ./",
+    "electron:start-live": "node ./live-runner.js",
+    "electron:start": "npm run build && electron --inspect=5858 ./",
     "electron:pack": "npm run build && electron-builder build --dir -c ./electron-builder.config.json",
-    "electron:make": "npm run build && electron-builder build -c ./electron-builder.config.json -p always",
-    "electron": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .",
-     "electron:build-windows": "npm run build && electron-builder build --windows",
-    "electron:build-mac": "npm run build && electron-builder build --mac"
+    "electron:make": "npm run build && electron-builder build -c ./electron-builder.config.json -p always"
   },
   "dependencies": {
     "@capacitor-community/electron": "^4.0.1",
@@ -41,28 +37,5 @@
   "keywords": [
     "capacitor",
     "electron"
-  ],
-  "author": "",
-  "license": "MIT",
-  "build": {
-    "appId": "com.example.capacitor-app",
-    "productName": "Capacitor App",
-    "files": [
-      "assets/**",
-      "build/**",
-      "preloader.js",
-      "plugins/**",
-      "capacitor.config.json",
-      "app/**"
-    ],
-    "mac": {
-      "category": "public.app-category.developer-tools",
-      "target": "dmg",
-      "icon": "assets/appIcon.png"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "assets/appIcon.ico"
-    }
-  }
+  ]
 }
