@@ -11,7 +11,7 @@ import { autoUpdater } from 'electron-updater';
 
 import {
   ElectronCapacitorApp,
- //setupContentSecurityPolicy,
+  //setupContentSecurityPolicy,
   setupReloadWatcher,
 } from './setup';
 
@@ -58,7 +58,7 @@ if (electronIsDev) {
   // Wait for electron app to be ready.
   await app.whenReady();
   // Security - Set Content-Security-Policy based on whether or not we are in dev mode.
-  //setupContentSecurityPolicy(myCapacitorApp.getCustomURLScheme());
+ // setupContentSecurityPolicy(myCapacitorApp.getCustomURLScheme());
   // Initialize our app, build windows, and load content.
   await myCapacitorApp.init();
   // Check for updates if we are in a packaged app.
